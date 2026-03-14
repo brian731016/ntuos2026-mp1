@@ -12,7 +12,7 @@ struct thread {
     void *stack;
     void *stack_p;
     jmp_buf env; // for thread function
-    int buf_set; //1: indicate jmp_buf (env) has been set, 0: indicate jmp_buf (env) not set
+    int buf_set; //1: indicate jmp_buf (env) has been set(init), 0: indicate jmp_buf (env) not set
     int ID;
     struct thread *previous;
     struct thread *next;
@@ -24,8 +24,10 @@ struct thread {
     // part 2
     void (*sig_handler[2])(int); // sig_handler[0] is for signo = 0, sig_handler[1] is for signo = 1
     int signo; // -1: no signal comes, 0: receive a signal signo = 0, 1: receive a signal signo = 1
+    void *sig_stack;
+    void *sig_stack_p;
     jmp_buf handler_env; // for signal handler function
-    int handler_buf_set; //1: indicate jmp_buf (handler_env) has been set, 0: indicate jmp_buf (handler_env) not set
+    int handler_buf_set; //1: indicate jmp_buf (handler_env) has been set(init), 0: indicate jmp_buf (handler_env) not set
     int join_blocked ;
     int suspended;   // 1 : thread suspend, 0 : thread resume
 };
